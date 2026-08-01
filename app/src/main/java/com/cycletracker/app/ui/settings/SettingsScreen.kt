@@ -6,54 +6,41 @@ import android.content.ContextWrapper
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Check
-import androidx.compose.material3.Button
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.periodtracker.R
-import com.periodtracker.app.core.lock.PasswordManager
-import com.periodtracker.app.core.locale.LocaleManager
-import com.periodtracker.app.data.backup.ImportResult
-import com.periodtracker.app.domain.model.ReminderPhase
-import com.periodtracker.app.domain.model.ThemeMode
+import com.cycletracker.app.R
+import com.cycletracker.app.core.lock.PasswordManager
+import com.cycletracker.app.core.locale.LocaleManager
+import com.cycletracker.app.data.backup.ImportResult
+import com.cycletracker.app.domain.model.ReminderPhase
+import com.cycletracker.app.domain.model.ThemeMode
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalLayoutApi::class)
@@ -66,7 +53,6 @@ fun SettingsScreen(
     val s = settings ?: return
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
-    var showColorPicker by remember { mutableStateOf(false) }
     var showPasswordSettings by remember { mutableStateOf(false) }
 
     val exportLauncher = rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("application/json")) { uri ->
@@ -89,18 +75,6 @@ fun SettingsScreen(
         }
     }
 
-    val onPickLanguage: (String?) -> Unit = { tag ->
-        viewModel.setLanguage(tag)
-        LocaleManager.persist(context, tag)
-        context.findActivity()?.recreate()
-    }
-
-    val titleState = remember(s.phaseReminders) {
-        mutableStateMapOf<ReminderPhase, String>().apply {
-            ReminderPhase.entries.forEach { put(it, s.reminderFor(it).title ?: "") }
-        }
-    }
-
     Column(
         Modifier
             .fillMaxSize()
@@ -108,30 +82,35 @@ fun SettingsScreen(
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        // Appearance
+        // 外观设置
         SectionHeader(stringResource(R.string.settings_appearance))
+        
+        // 主题选择
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            FilterChip(
+                selected = s.themeMode == ThemeMode.SYSTEM,
+                onClick = { viewModel.setThemeMode(ThemeMode.SYSTEM) },
+                label = { Text(stringResource(R.string.theme_system)) }
+            )
+            FilterChip(
+                selected = s.themeMode == ThemeMode.LIGHT,
+                onClick = { viewModel.setThemeMode(ThemeMode.LIGHT) },
+                label = { Text(stringResource(R.string.theme_light)) }
+            )
+            FilterChip(
+                selected = s.themeMode == ThemeMode.DARK,
+                onClick = { viewModel.setThemeMode(ThemeMode.DARK) },
+                label = { Text(stringResource(R.string.theme_dark)) }
+            )
+        }
 
-        // Theme
-        FilterChip(
-            selected = s.themeMode == ThemeMode.SYSTEM,
-            onClick = { viewModel.setThemeMode(ThemeMode.SYSTEM) },
-            label = { Text(stringResource(R.string.theme_system)) }
-        )
-        FilterChip(
-            selected = s.themeMode == ThemeMode.LIGHT,
-            onClick = { viewModel.setThemeMode(ThemeMode.LIGHT) },
-            label = { Text(stringResource(R.string.theme_light)) }
-        )
-        FilterChip(
-            selected = s.themeMode == ThemeMode.DARK,
-            onClick = { viewModel.setThemeMode(ThemeMode.DARK) },
-            label = { Text(stringResource(R.string.theme_dark)) }
-        )
-
-        // Dynamic color
+        // 动态颜色
         ToggleRow(stringResource(R.string.settings_dynamic_color), s.dynamicColor, viewModel::setDynamicColor)
 
-        // Privacy
+        // 隐私设置
         SectionHeader(stringResource(R.string.settings_privacy))
 
         // 密码设置按钮
@@ -156,7 +135,7 @@ fun SettingsScreen(
 
         ToggleRow(stringResource(R.string.settings_app_lock), s.appLockEnabled, viewModel::setAppLock)
 
-        // Data
+        // 数据设置
         SectionHeader(stringResource(R.string.settings_data))
         OutlinedButton(onClick = { exportLauncher.launch("cycle-backup.json") }, modifier = Modifier.fillMaxWidth()) {
             Text(stringResource(R.string.settings_export))
