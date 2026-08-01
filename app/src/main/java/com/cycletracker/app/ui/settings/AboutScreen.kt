@@ -1,4 +1,4 @@
-package com.cycletracker.app.ui.settings
+﻿package com.cycletracker.app.ui.settings
 
 import android.content.Intent
 import android.net.Uri
@@ -57,8 +57,8 @@ fun AboutScreen(onBack: () -> Unit) {
 private fun DeveloperBlock() {
     Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
         Text(stringResource(R.string.about_developer), style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.primary)
-        LinkRow("GitHub — github.com/csoftware-arigpt", "https://github.com/csoftware-arigpt")
-        LinkRow("csoftlabs.ru", "https://csoftlabs.ru")
+        Text("香菜柠檬茶", style = MaterialTheme.typography.bodyMedium)
+        Text("邮箱：2656427078@qq.com", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.primary)
     }
 }
 
@@ -82,3 +82,4 @@ private fun DisclaimerBlock(title: String, body: String) {
         Text(body, style = MaterialTheme.typography.bodyMedium)
     }
 }
+
