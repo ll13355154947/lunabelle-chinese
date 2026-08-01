@@ -1,0 +1,221 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">月亮经期</string>
+
+    <!-- 标签/操作 -->
+    <string name="tab_today">今天</string>
+    <string name="tab_calendar">日历</string>
+    <string name="tab_insights">分析</string>
+    <string name="tab_history">历史</string>
+    <string name="tab_settings">设置</string>
+    <string name="action_log_today">记录今天</string>
+    <string name="action_save">保存</string>
+    <string name="action_cancel">取消</string>
+    <string name="action_back">返回</string>
+    <string name="action_add_period">添加经期</string>
+
+    <!-- 今天 -->
+    <string name="today_empty_title">欢迎</string>
+    <string name="today_empty_subtitle">记录您的第一次经期，开始查看预测和分析</string>
+    <string name="today_empty_cta">记录经期</string>
+    <string name="today_day_label">第</string>
+    <string name="card_next_period">下次经期</string>
+    <string name="card_fertile_window">易孕期</string>
+    <string name="due_today">预计今天</string>
+    <string name="ovulation_on">排卵日 %1</string>
+    <string name="section_insights">分析</string>
+    <string name="confidence_prefix">置信度：%1</string>
+    <plurals name="in_days">
+        <item quantity="other">%d 天后</item>
+    </plurals>
+
+    <!-- 周期阶段 -->
+    <string name="phase_menstrual">月经期</string>
+    <string name="phase_follicular">卵泡期</string>
+    <string name="phase_ovulatory">排卵期</string>
+    <string name="phase_luteal">黄体期</string>
+    <string name="phase_unknown">未知</string>
+
+    <!-- 经量 -->
+    <string name="flow_none">无</string>
+    <string name="flow_spotting">点滴</string>
+    <string name="flow_light">少量</string>
+    <string name="flow_medium">中等</string>
+    <string name="flow_heavy">大量</string>
+
+    <!-- 强度 -->
+    <string name="intensity_none">无</string>
+    <string name="intensity_mild">轻微</string>
+    <string name="intensity_moderate">中等</string>
+    <string name="intensity_severe">严重</string>
+
+    <!-- 置信度 -->
+    <string name="confidence_none">无</string>
+    <string name="confidence_low">低</string>
+    <string name="confidence_medium">中</string>
+    <string name="confidence_high">高</string>
+
+    <!-- 宫颈粘液 -->
+    <string name="mucus_none">干燥</string>
+    <string name="mucus_sticky">粘稠</string>
+    <string name="mucus_creamy">乳状</string>
+    <string name="mucus_watery">水样</string>
+    <string name="mucus_egg_white">蛋清状</string>
+
+    <!-- LH测试 -->
+    <string name="lh_not_taken">未测试</string>
+    <string name="lh_negative">阴性</string>
+    <string name="lh_positive">阳性</string>
+
+    <!-- 性行为 -->
+    <string name="sex_none">无</string>
+    <string name="sex_protected">有保护</string>
+    <string name="sex_unprotected">无保护</string>
+
+    <!-- 日历 -->
+    <string name="prev_month">上个月</string>
+    <string name="next_month">下个月</string>
+    <string name="legend_period">经期</string>
+    <string name="legend_predicted">预测经期</string>
+    <string name="legend_fertile">易孕期</string>
+    <string name="legend_ovulation">排卵日</string>
+
+    <!-- 记录 -->
+    <string name="log_flow">经量</string>
+    <string name="log_symptoms">症状</string>
+    <string name="log_mucus">宫颈粘液</string>
+    <string name="log_lh">排卵(LH)测试</string>
+    <string name="log_activity">性行为</string>
+    <string name="log_notes">备注</string>
+
+    <!-- 症状分类 -->
+    <string name="cat_pain">疼痛</string>
+    <string name="cat_physical">身体</string>
+    <string name="cat_mood">情绪</string>
+    <string name="cat_energy">精力与睡眠</string>
+    <string name="cat_digestion">消化</string>
+    <string name="cat_other">其他</string>
+
+    <!-- 症状 -->
+    <string name="sym_cramps">痛经</string>
+    <string name="sym_headache">头痛</string>
+    <string name="sym_back_pain">腰痛</string>
+    <string name="sym_breast_tenderness">乳房胀痛</string>
+    <string name="sym_ovulation_pain">排卵痛</string>
+    <string name="sym_bloating">腹胀</string>
+    <string name="sym_fatigue">疲劳</string>
+    <string name="sym_acne">痘痘</string>
+    <string name="sym_nausea">恶心</string>
+    <string name="sym_cravings">食欲变化</string>
+    <string name="sym_irritability">易怒</string>
+    <string name="sym_anxiety">焦虑</string>
+    <string name="sym_low_mood">情绪低落</string>
+    <string name="sym_mood_swings">情绪波动</string>
+    <string name="sym_high_energy">精力充沛</string>
+    <string name="sym_low_energy">精力不足</string>
+    <string name="sym_insomnia">失眠</string>
+    <string name="sym_constipation">便秘</string>
+    <string name="sym_diarrhea">腹泻</string>
+
+    <!-- 设置 -->
+    <string name="settings_title">设置</string>
+    <string name="settings_appearance">外观</string>
+    <string name="settings_theme">主题</string>
+    <string name="settings_theme_system">跟随系统</string>
+    <string name="settings_theme_light">浅色</string>
+    <string name="settings_theme_dark">深色</string>
+    <string name="settings_data">数据</string>
+    <string name="settings_export">导出数据</string>
+    <string name="settings_import">导入数据</string>
+    <string name="settings_delete_all">删除所有数据</string>
+    <string name="settings_about">关于</string>
+    <string name="settings_version">版本</string>
+    <string name="settings_privacy">隐私政策</string>
+    <string name="settings_reminders">提醒</string>
+    <string name="settings_reminder_period">经期提醒</string>
+    <string name="settings_reminder_fertile">易孕期提醒</string>
+    <string name="settings_reminder_ovulation">排卵日提醒</string>
+
+    <!-- 提醒设置 -->
+    <string name="settings_reminder_lead">提前几天提醒</string>
+    <string name="settings_custom_title">自定义标题（可选）</string>
+    <string name="settings_custom_text">自定义内容（可选）</string>
+    <string name="settings_custom_hint">提示：{date} 会插入预测日期</string>
+    <string name="settings_save_reminders">保存提醒文字</string>
+    <string name="reminders_saved">提醒文字已保存</string>
+
+    <!-- 通知 -->
+    <string name="channel_period">经期提醒</string>
+    <string name="channel_fertile">易孕期</string>
+    <string name="notif_period_title">经期即将到来</string>
+    <string name="notif_period_body">您的经期预计在 %1 左右</string>
+    <string name="notif_fertile_title">易孕期</string>
+    <string name="notif_fertile_body">您的易孕期大约从 %1 开始</string>
+    <string name="expected_window">预计 %1 - %2</string>
+    <string name="notif_action_open">打开</string>
+
+    <!-- 周期阶段提醒 -->
+    <string name="channel_cycle">周期提醒</string>
+    <string name="rem_phase_menstrual">月经期</string>
+    <string name="rem_phase_follicular">卵泡期</string>
+    <string name="rem_phase_ovulatory">排卵期/易孕期</string>
+    <string name="rem_phase_luteal">黄体期</string>
+    <string name="notif_menstrual_title">经期即将到来</string>
+    <string name="notif_menstrual_body">您的经期预计在 %1 左右</string>
+    <string name="notif_follicular_title">卵泡期</string>
+    <string name="notif_follicular_body">您的卵泡期大约从 %1 开始</string>
+    <string name="notif_ovulatory_title">易孕期</string>
+    <string name="notif_ovulatory_body">排卵期预计在 %1 左右</string>
+    <string name="notif_luteal_title">黄体期</string>
+    <string name="notif_luteal_body">您的黄体期大约从 %1 开始</string>
+    <string name="legend_intimacy">性行为</string>
+    <string name="select_dates_hint">点击第一天和最后一天</string>
+    <string name="settings_theme_color">主题颜色</string>
+    <string name="settings_theme_color_default">默认</string>
+    <string name="settings_theme_color_custom">自定义颜色...</string>
+    <string name="color_done">完成</string>
+    <string name="color_cancel">取消</string>
+    <string name="action_period_started">经期开始</string>
+    <string name="card_delay">延迟</string>
+    <string name="card_delay_hint">如果经期已开始请点击</string>
+    <string name="delay_days_fmt">%1 天</string>
+    <string name="history_empty_title">暂无统计数据</string>
+    <string name="action_period_continue">经期继续</string>
+    <string name="delay_marked">已记录延迟</string>
+    <string name="insights_empty_title">暂无分析数据</string>
+    <string name="action_period_cancel">取消经期</string>
+    <string name="cancel_registered_delay">已记录为延迟 - 预测已重新计算</string>
+    <string name="about_developer">开发者</string>
+    <string name="today_delay_label">天延迟</string>
+    <string name="confirm_period_started">标记今天为经期开始？</string>
+    <string name="confirm_period_continue">标记今天经期继续？</string>
+    <string name="confirm_cancel_title">取消经期？</string>
+    <string name="confirm_cancel_reason">选择原因：</string>
+    <string name="reason_delay">延迟</string>
+    <string name="reason_mistake">误操作</string>
+    <string name="action_confirm">确认</string>
+    <string name="cancel_removed">标记已移除</string>
+    <string name="log_delete">删除记录</string>
+    <string name="confirm_delete_log">删除这天的记录？</string>
+
+    <!-- 引导弹窗 -->
+    <string name="onboarding_welcome_title">设置您的周期</string>
+    <string name="onboarding_welcome_subtitle">一些默认设置来个性化预测。您可以稍后更改</string>
+    <string name="onboarding_cycle_length">平均周期长度</string>
+    <string name="onboarding_period_length">平均经期长度</string>
+    <string name="onboarding_goal">您的目标</string>
+    <string name="onboarding_accept">我理解此应用不是避孕工具，预测仅为估计</string>
+    <string name="onboarding_start">开始使用</string>
+    <string name="onboarding_accept_continue">我理解并接受</string>
+    <string name="goal_tracking">追踪我的周期</string>
+    <string name="goal_ttc">备孕</string>
+    <string name="goal_avoid">周期意识</string>
+
+    <!-- 锁屏 -->
+    <string name="lock_title">周期已锁定</string>
+    <string name="lock_subtitle">解锁以继续</string>
+    <string name="lock_unlock">解锁</string>
+
+    <!-- 免责声明 -->
+    <string name="disclaimer">免责声明：此应用仅供参考，不构成医疗建议。如有任何健康问题或担忧，请咨询专业医疗人员。</string>
+</resources>
