@@ -23,8 +23,8 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material.icons.filled.Visibility
-import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.material.Icons.Default.Lock
+import androidx.compose.material.Icons.Default.LockOff
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -125,7 +125,7 @@ fun LockScreen(onUnlocked: () -> Unit) {
             trailingIcon = {
                 IconButton(onClick = { showPassword = !showPassword }) {
                     Icon(
-                        if (showPassword) Icons.Filled.VisibilityOff else Icons.Filled.Visibility,
+                        if (showPassword) Icons.Default.LockOff else Icons.Default.Lock,
                         contentDescription = if (showPassword) "隐藏密码" else "显示密码"
                     )
                 }
@@ -270,3 +270,4 @@ private fun promptBiometricUnlock(
         onError("解锁失败: ${e.message}")
     }
 }
+
