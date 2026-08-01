@@ -1,4 +1,4 @@
-package com.cycletracker.app.ui.settings
+﻿package com.cycletracker.app.ui.settings
 
 import android.app.Activity
 import android.content.Context
@@ -49,7 +49,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.cycletracker.app.R
+
+import com.cycletracker.app.core.lock.PasswordManager
 import com.cycletracker.app.core.locale.LocaleManager
 import com.cycletracker.app.data.backup.ImportResult
 import com.cycletracker.app.domain.model.ReminderPhase
@@ -67,6 +68,7 @@ fun SettingsScreen(
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     var showColorPicker by remember { mutableStateOf(false) }
+    var showPasswordSettings by remember { mutableStateOf(false) }
 
     val exportLauncher = rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("application/json")) { uri ->
         if (uri != null) scope.launch {
@@ -175,7 +177,28 @@ fun SettingsScreen(
             ) { Text(stringResource(R.string.settings_save_reminders)) }
         }
 
-        SectionHeader(stringResource(R.string.settings_privacy))
+                SectionHeader(stringResource(R.string.settings_privacy))
+        
+        // 密码设置按钮
+        androidx.compose.foundation.layout.Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable { showPasswordSettings = true }
+                .padding(vertical = 12.dp),
+            horizontalArrangement = androidx.compose.foundation.layout.Arrangement.SpaceBetween,
+            verticalAlignment = androidx.compose.ui.Alignment.CenterVertically
+        ) {
+            Text(
+                "密码设置",
+                style = MaterialTheme.typography.bodyLarge
+            )
+            Text(
+                if (PasswordManager.hasPassword(context)) "已设置" else "未设置",
+                style = MaterialTheme.typography.bodyMedium,
+                color = if (PasswordManager.hasPassword(context)) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        }
+        
         ToggleRow(stringResource(R.string.settings_app_lock), s.appLockEnabled, viewModel::setAppLock)
 
         SectionHeader(stringResource(R.string.settings_data))
@@ -216,7 +239,7 @@ private fun ToggleRow(label: String, checked: Boolean, onChange: (Boolean) -> Un
 private fun Stepper(label: String, value: Int, min: Int, max: Int, onChange: (Int) -> Unit) {
     Row(Modifier.fillMaxWidth().padding(vertical = 4.dp), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
         Text(label, style = MaterialTheme.typography.bodyMedium, modifier = Modifier.weight(1f))
-        OutlinedButton(onClick = { if (value > min) onChange(value - 1) }) { Text("−") }
+        OutlinedButton(onClick = { if (value > min) onChange(value - 1) }) { Text("鈭?) }
         Text("$value", style = MaterialTheme.typography.titleMedium, modifier = Modifier.padding(horizontal = 12.dp))
         OutlinedButton(onClick = { if (value < max) onChange(value + 1) }) { Text("+") }
     }
@@ -263,5 +286,13 @@ private fun ColorSwatch(color: Color, selected: Boolean, onClick: () -> Unit) {
         contentAlignment = Alignment.Center,
     ) {
         if (selected) Icon(Icons.Filled.Check, contentDescription = null, tint = Color.White)
+    }    
+    // 密码设置对话框
+    if (showPasswordSettings) {
+        PasswordSettingsDialog(
+            onDismiss = { showPasswordSettings = false }
+        )
     }
+
 }
+

@@ -6,15 +6,26 @@ import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Fingerprint
 import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -27,18 +38,27 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import com.cycletracker.app.R
+import com.cycletracker.app.core.lock.PasswordManager
 
 @Composable
 fun LockScreen(onUnlocked: () -> Unit) {
     val context = LocalContext.current
     val activity = remember(context) { context.findFragmentActivity() }
-    var biometricAvailable by remember { mutableStateOf(true) }
+    
+    var password by remember { mutableStateOf("") }
     var errorMessage by remember { mutableStateOf<String?>(null) }
-
+    var showPassword by remember { mutableStateOf(false) }
+    var biometricAvailable by remember { mutableStateOf(false) }
+    var useBiometric by remember { mutableStateOf(true) }
+    
     // 检查生物识别是否可用
     LaunchedEffect(Unit) {
         activity?.let { act ->
@@ -49,9 +69,11 @@ fun LockScreen(onUnlocked: () -> Unit) {
             )
             biometricAvailable = canAuth == BiometricManager.BIOMETRIC_SUCCESS
             
-            if (biometricAvailable) {
-                promptUnlock(act, onUnlocked) { error ->
+            // 如果启用了生物识别且可用，自动弹出生物识别
+            if (biometricAvailable && PasswordManager.isBiometricEnabled(context)) {
+                promptBiometricUnlock(act, onUnlocked) { error ->
                     errorMessage = error
+                    useBiometric = false
                 }
             }
         }
@@ -62,49 +84,119 @@ fun LockScreen(onUnlocked: () -> Unit) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Icon(Icons.Filled.Lock, contentDescription = null, modifier = Modifier.height(48.dp))
+        Icon(
+            Icons.Filled.Lock, 
+            contentDescription = null, 
+            modifier = Modifier.height(48.dp),
+            tint = MaterialTheme.colorScheme.primary
+        )
         Spacer(Modifier.height(16.dp))
-        Text(stringResource(R.string.lock_title), style = MaterialTheme.typography.headlineSmall)
+        Text(
+            stringResource(R.string.lock_title), 
+            style = MaterialTheme.typography.headlineSmall
+        )
         Spacer(Modifier.height(8.dp))
         Text(
             stringResource(R.string.lock_subtitle),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
-        Spacer(Modifier.height(24.dp))
+        Spacer(Modifier.height(32.dp))
         
-        if (biometricAvailable) {
-            Button(onClick = { 
-                activity?.let { act ->
-                    promptUnlock(act, onUnlocked) { error ->
-                        errorMessage = error
+        // 密码输入框
+        OutlinedTextField(
+            value = password,
+            onValueChange = { 
+                password = it
+                errorMessage = null
+            },
+            label = { Text("输入密码") },
+            singleLine = true,
+            visualTransformation = if (showPassword) VisualTransformation.None else PasswordVisualTransformation(),
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Password,
+                imeAction = ImeAction.Done
+            ),
+            keyboardActions = KeyboardActions(
+                onDone = {
+                    if (password.isNotEmpty()) {
+                        if (PasswordManager.verifyPassword(context, password)) {
+                            onUnlocked()
+                        } else {
+                            errorMessage = "密码错误"
+                        }
                     }
                 }
-            }) {
-                Text(stringResource(R.string.lock_unlock))
-            }
-        } else {
-            // 如果生物识别不可用，显示跳过按钮
-            Text(
-                "此设备不支持生物识别或未设置锁屏密码",
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.error
-            )
-            Spacer(Modifier.height(16.dp))
-            Button(onClick = onUnlocked) {
-                Text("跳过解锁")
-            }
-        }
+            ),
+            trailingIcon = {
+                IconButton(onClick = { showPassword = !showPassword }) {
+                    Icon(
+                        if (showPassword) Icons.Filled.VisibilityOff else Icons.Filled.Visibility,
+                        contentDescription = if (showPassword) "隐藏密码" else "显示密码"
+                    )
+                }
+            },
+            isError = errorMessage != null,
+            modifier = Modifier.fillMaxWidth()
+        )
         
-        // 显示错误信息
+        // 错误信息
         errorMessage?.let { error ->
-            Spacer(Modifier.height(16.dp))
+            Spacer(Modifier.height(8.dp))
             Text(
                 error,
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.error
             )
-            Spacer(Modifier.height(8.dp))
+        }
+        
+        Spacer(Modifier.height(16.dp))
+        
+        // 解锁按钮
+        Button(
+            onClick = {
+                if (password.isNotEmpty()) {
+                    if (PasswordManager.verifyPassword(context, password)) {
+                        onUnlocked()
+                    } else {
+                        errorMessage = "密码错误"
+                    }
+                } else {
+                    errorMessage = "请输入密码"
+                }
+            },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text("密码解锁")
+        }
+        
+        // 生物识别按钮（如果可用）
+        if (biometricAvailable && PasswordManager.isBiometricEnabled(context)) {
+            Spacer(Modifier.height(12.dp))
+            
+            OutlinedButton(
+                onClick = {
+                    activity?.let { act ->
+                        promptBiometricUnlock(act, onUnlocked) { error ->
+                            errorMessage = error
+                        }
+                    }
+                },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Icon(
+                    Icons.Filled.Fingerprint,
+                    contentDescription = null,
+                    modifier = Modifier.padding(end = 8.dp)
+                )
+                Text("指纹/人脸解锁")
+            }
+        }
+        
+        Spacer(Modifier.height(16.dp))
+        
+        // 跳过按钮（仅在未设置密码时显示）
+        if (!PasswordManager.hasPassword(context)) {
             TextButton(onClick = onUnlocked) {
                 Text("跳过解锁")
             }
@@ -118,7 +210,7 @@ private tailrec fun Context.findFragmentActivity(): FragmentActivity? = when (th
     else -> null
 }
 
-private fun promptUnlock(
+private fun promptBiometricUnlock(
     activity: FragmentActivity, 
     onSuccess: () -> Unit,
     onError: (String) -> Unit
@@ -145,7 +237,7 @@ private fun promptUnlock(
                     return
                 }
                 else -> {
-                    onError("生物识别不可用，错误代码: $canAuth")
+                    onError("生物识别不可用")
                     return
                 }
             }
@@ -175,12 +267,9 @@ private fun promptUnlock(
         )
         
         val info = BiometricPrompt.PromptInfo.Builder()
-            .setTitle(activity.getString(R.string.lock_title))
-            .setSubtitle(activity.getString(R.string.lock_subtitle))
-            .setAllowedAuthenticators(
-                BiometricManager.Authenticators.BIOMETRIC_WEAK or
-                    BiometricManager.Authenticators.DEVICE_CREDENTIAL,
-            )
+            .setTitle("解锁应用")
+            .setSubtitle("使用指纹或面部识别解锁")
+            .setNegativeButtonText("使用密码")
             .build()
         
         prompt.authenticate(info)
