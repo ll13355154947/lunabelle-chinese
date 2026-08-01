@@ -6,20 +6,15 @@ import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.Icons.Default.Lock
 import androidx.compose.material.icons.filled.Lock
-import androidx.compose.material.Icons.Default.Lock
-import androidx.compose.material.Icons.Default.LockOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -28,6 +23,8 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -52,12 +49,10 @@ import com.cycletracker.app.core.lock.PasswordManager
 fun LockScreen(onUnlocked: () -> Unit) {
     val context = LocalContext.current
     val activity = remember(context) { context.findFragmentActivity() }
-    
     var password by remember { mutableStateOf("") }
     var errorMessage by remember { mutableStateOf<String?>(null) }
     var showPassword by remember { mutableStateOf(false) }
     var biometricAvailable by remember { mutableStateOf(false) }
-    var useBiometric by remember { mutableStateOf(true) }
     
     // 检查生物识别是否可用
     LaunchedEffect(Unit) {
@@ -73,7 +68,6 @@ fun LockScreen(onUnlocked: () -> Unit) {
             if (biometricAvailable && PasswordManager.isBiometricEnabled(context)) {
                 promptBiometricUnlock(act, onUnlocked) { error ->
                     errorMessage = error
-                    useBiometric = false
                 }
             }
         }
@@ -131,7 +125,7 @@ fun LockScreen(onUnlocked: () -> Unit) {
             trailingIcon = {
                 IconButton(onClick = { showPassword = !showPassword }) {
                     Icon(
-                        if (showPassword) Icons.Default.LockOff else Icons.Default.Lock,
+                        if (showPassword) Icons.Filled.VisibilityOff else Icons.Filled.Visibility,
                         contentDescription = if (showPassword) "隐藏密码" else "显示密码"
                     )
                 }
@@ -185,7 +179,7 @@ fun LockScreen(onUnlocked: () -> Unit) {
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Icon(
-                    Icons.Default.Lock,
+                    Icons.Filled.Lock,
                     contentDescription = null,
                     modifier = Modifier.padding(end = 8.dp)
                 )
@@ -261,7 +255,6 @@ private fun promptBiometricUnlock(
                 
                 override fun onAuthenticationFailed() {
                     super.onAuthenticationFailed()
-                    // 认证失败时不调用 onError，让用户重试
                 }
             },
         )
@@ -277,4 +270,3 @@ private fun promptBiometricUnlock(
         onError("解锁失败: ${e.message}")
     }
 }
-
