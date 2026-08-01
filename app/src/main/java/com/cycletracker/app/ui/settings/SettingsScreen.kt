@@ -92,17 +92,17 @@ fun SettingsScreen(
         ) {
             FilterChip(
                 selected = s.themeMode == ThemeMode.SYSTEM,
-                onClick = { viewModel.setThemeMode(ThemeMode.SYSTEM) },
+                onClick = { viewModel.setTheme(ThemeMode.SYSTEM) },
                 label = { Text(stringResource(R.string.theme_system)) }
             )
             FilterChip(
                 selected = s.themeMode == ThemeMode.LIGHT,
-                onClick = { viewModel.setThemeMode(ThemeMode.LIGHT) },
+                onClick = { viewModel.setTheme(ThemeMode.LIGHT) },
                 label = { Text(stringResource(R.string.theme_light)) }
             )
             FilterChip(
                 selected = s.themeMode == ThemeMode.DARK,
-                onClick = { viewModel.setThemeMode(ThemeMode.DARK) },
+                onClick = { viewModel.setTheme(ThemeMode.DARK) },
                 label = { Text(stringResource(R.string.theme_dark)) }
             )
         }
@@ -192,3 +192,4 @@ private tailrec fun Context.findActivity(): Activity? = when (this) {
     is ContextWrapper -> baseContext.findActivity()
     else -> null
 }
+

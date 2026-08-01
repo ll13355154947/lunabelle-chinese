@@ -16,10 +16,10 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Fingerprint
+import androidx.compose.material.Icons.Default.Lock
 import androidx.compose.material.icons.filled.Lock
-import androidx.compose.material.icons.filled.Visibility
-import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.material.Icons.Default.Lock
+import androidx.compose.material.Icons.Default.LockOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -131,7 +131,7 @@ fun LockScreen(onUnlocked: () -> Unit) {
             trailingIcon = {
                 IconButton(onClick = { showPassword = !showPassword }) {
                     Icon(
-                        if (showPassword) Icons.Filled.VisibilityOff else Icons.Filled.Visibility,
+                        if (showPassword) Icons.Default.LockOff else Icons.Default.Lock,
                         contentDescription = if (showPassword) "隐藏密码" else "显示密码"
                     )
                 }
@@ -185,7 +185,7 @@ fun LockScreen(onUnlocked: () -> Unit) {
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Icon(
-                    Icons.Filled.Fingerprint,
+                    Icons.Default.Lock,
                     contentDescription = null,
                     modifier = Modifier.padding(end = 8.dp)
                 )
@@ -277,3 +277,4 @@ private fun promptBiometricUnlock(
         onError("解锁失败: ${e.message}")
     }
 }
+
