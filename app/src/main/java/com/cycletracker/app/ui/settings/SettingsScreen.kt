@@ -50,7 +50,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
-import com.cycletracker.app.core.lock.PasswordManager
+
+import com.cycletracker.app.ui.settings.PasswordSettingsDialog
 import com.cycletracker.app.core.locale.LocaleManager
 import com.cycletracker.app.data.backup.ImportResult
 import com.cycletracker.app.domain.model.ReminderPhase
@@ -295,4 +296,5 @@ private fun ColorSwatch(color: Color, selected: Boolean, onClick: () -> Unit) {
     }
 
 }
+
 
