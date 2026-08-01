@@ -22,9 +22,9 @@
     <string name="card_next_period">下次经期</string>
     <string name="card_fertile_window">易孕期</string>
     <string name="due_today">预计今天</string>
-    <string name="ovulation_on">排卵日 %1</string>
+    <string name="ovulation_on">排卵日 %1$s</string>
     <string name="section_insights">分析</string>
-    <string name="confidence_prefix">置信度：%1</string>
+    <string name="confidence_prefix">置信度：%1$s</string>
     <plurals name="in_days">
         <item quantity="other">%d 天后</item>
     </plurals>
@@ -116,25 +116,109 @@
     <string name="sym_insomnia">失眠</string>
     <string name="sym_constipation">便秘</string>
     <string name="sym_diarrhea">腹泻</string>
+    <string name="sym_high_libido">性欲高</string>
+    <string name="sym_low_libido">性欲低</string>
+
+    <!-- 分析 -->
+    <string name="insights_empty">记录经期以查看分析</string>
+    <string name="insights_header">第 %1$d 天 · %2$s</string>
+    <string name="insights_none_today">今天没有特别的</string>
+    <string name="disclaimer_estimates_short">预测是基于您历史记录的估计，不是测量值</string>
+    <string name="insight_needs_more_data">需要更多数据</string>
+    <string name="insight_low_confidence">置信度低</string>
+    <string name="insight_irregular">周期不规律</string>
+    <string name="insight_fertile_window">易孕期</string>
+    <string name="insight_ovulation_soon">即将排卵</string>
+    <string name="insight_ovulation_today">预计今天排卵</string>
+    <string name="insight_period_due">经期将至</string>
+    <string name="insight_period_late">经期可能延迟</string>
+    <string name="insight_pms_likely">可能出现经前综合征</string>
+    <string name="insight_out_of_range">周期长度超出正常范围</string>
+    <string name="insight_needs_more_data_desc">至少记录三个周期才能获得有意义的预测</string>
+    <string name="insight_low_confidence_desc">您最近的周期变化较大，预测可能不太准确</string>
+    <string name="insight_irregular_desc">您的周期长度相差一周或更多。建议咨询医生</string>
+    <string name="insight_fertile_window_desc">您正处于预计的易孕期。排卵时间会有变化；如有需要请用LH测试确认</string>
+    <string name="insight_ovulation_soon_desc">预计排卵在明天或后天</string>
+    <string name="insight_ovulation_today_desc">今天是您的预计排卵日。这是估计值，不是测量值</string>
+    <string name="insight_period_due_desc">您的经期预计在现在左右</string>
+    <string name="insight_period_late_desc">您的经期比预计的晚。周期会有自然变化</string>
+    <string name="insight_pms_likely_desc">经前综合征症状通常在经期前几天出现</string>
+    <string name="insight_out_of_range_desc">周期短于21天或长于35天建议咨询医生</string>
+
+    <!-- 历史 -->
+    <string name="history_empty">至少记录两次经期才能查看统计</string>
+    <string name="history_title">统计数据</string>
+    <string name="stat_avg_cycle">平均周期（天）</string>
+    <string name="stat_avg_period">平均经期（天）</string>
+    <string name="stat_range">周期范围</string>
+    <string name="stat_regularity">规律性</string>
+    <string name="regularity_irregular">不规律</string>
+    <string name="regularity_regular">规律</string>
+    <string name="chart_cycle_lengths">近期周期长度</string>
+    <string name="history_top_symptoms">最常见症状</string>
 
     <!-- 设置 -->
-    <string name="settings_title">设置</string>
     <string name="settings_appearance">外观</string>
     <string name="settings_theme">主题</string>
-    <string name="settings_theme_system">跟随系统</string>
-    <string name="settings_theme_light">浅色</string>
-    <string name="settings_theme_dark">深色</string>
-    <string name="settings_data">数据</string>
-    <string name="settings_export">导出数据</string>
-    <string name="settings_import">导入数据</string>
-    <string name="settings_delete_all">删除所有数据</string>
-    <string name="settings_about">关于</string>
-    <string name="settings_version">版本</string>
-    <string name="settings_privacy">隐私政策</string>
+    <string name="settings_dynamic_color">动态颜色</string>
+    <string name="settings_language">语言</string>
+    <string name="lang_system">跟随系统</string>
+    <string name="lang_ru">俄语</string>
+    <string name="lang_en">英语</string>
     <string name="settings_reminders">提醒</string>
-    <string name="settings_reminder_period">经期提醒</string>
-    <string name="settings_reminder_fertile">易孕期提醒</string>
-    <string name="settings_reminder_ovulation">排卵日提醒</string>
+    <string name="settings_period_reminder">经期提醒</string>
+    <string name="settings_fertile_reminder">易孕期提醒</string>
+    <string name="settings_privacy">隐私</string>
+    <string name="settings_app_lock">打开时需要解锁</string>
+    <string name="settings_data">数据</string>
+    <string name="settings_export">导出备份 (JSON)</string>
+    <string name="settings_import">导入备份 (JSON)</string>
+    <string name="settings_about">关于和免责声明</string>
+    <string name="theme_system">跟随系统</string>
+    <string name="theme_light">浅色</string>
+    <string name="theme_dark">深色</string>
+    <string name="export_done">备份已导出</string>
+    <string name="import_done">备份已导入</string>
+    <string name="import_unsupported">不支持的备份版本</string>
+    <string name="import_failed">无法导入备份</string>
+    <string name="about_offline">此应用完全离线运行。您的数据永远不会离开您的设备</string>
+
+    <!-- 免责声明 -->
+    <string name="disclaimer_title">开始之前</string>
+    <string name="disclaimer_contra_title">不是避孕工具</string>
+    <string name="disclaimer_contra_body">此应用仅用于追踪和信息参考。它不是避孕方法，不能用于预防怀孕。基于日历的预测对于避孕来说是不可靠的（大约每100个依赖它的人中有20到24个会在一年内怀孕）。请使用经过验证的方法并咨询医疗专业人员</string>
+    <string name="disclaimer_estimates_title">仅供参考</string>
+    <string name="disclaimer_estimates_body">所有预测（下次经期、排卵、易孕期）都是基于您记录的历史和人群平均值的估计，不是测量值。准确性会在几个周期后提高。排卵尤其多变；请用LH测试、基础体温或宫颈粘液确认</string>
+    <string name="disclaimer_clinician_title">咨询医生</string>
+    <string name="disclaimer_clinician_body">此应用不提供医疗建议，不能诊断或治疗任何疾病。如果您发现周期短于21天或长于35天、出血超过8天、90天或更长时间没有经期，或任何让您担忧的变化，请咨询合格的医疗专业人员</string>
+
+    <!-- 引导 -->
+    <string name="onboarding_welcome_title">设置您的周期</string>
+    <string name="onboarding_welcome_subtitle">一些默认设置来个性化预测。您可以稍后更改</string>
+    <string name="onboarding_cycle_length">平均周期长度</string>
+    <string name="onboarding_period_length">平均经期长度</string>
+    <string name="onboarding_goal">您的目标</string>
+    <string name="onboarding_accept">我理解此应用不是避孕工具，预测仅为估计</string>
+    <string name="onboarding_start">开始使用</string>
+    <string name="onboarding_accept_continue">我理解并接受</string>
+    <string name="goal_tracking">追踪我的周期</string>
+    <string name="goal_ttc">备孕</string>
+    <string name="goal_avoid">周期意识</string>
+
+    <!-- 锁屏 -->
+    <string name="lock_title">周期已锁定</string>
+    <string name="lock_subtitle">解锁以继续</string>
+    <string name="lock_unlock">解锁</string>
+
+    <!-- 通知 -->
+    <string name="channel_period">经期提醒</string>
+    <string name="channel_fertile">易孕期</string>
+    <string name="notif_period_title">经期即将到来</string>
+    <string name="notif_period_body">您的经期预计在 %1$s 左右</string>
+    <string name="notif_fertile_title">易孕期</string>
+    <string name="notif_fertile_body">您的易孕期大约从 %1$s 开始</string>
+    <string name="expected_window">预计 %1$s - %2$s</string>
+    <string name="notif_action_open">打开</string>
 
     <!-- 提醒设置 -->
     <string name="settings_reminder_lead">提前几天提醒</string>
@@ -144,16 +228,6 @@
     <string name="settings_save_reminders">保存提醒文字</string>
     <string name="reminders_saved">提醒文字已保存</string>
 
-    <!-- 通知 -->
-    <string name="channel_period">经期提醒</string>
-    <string name="channel_fertile">易孕期</string>
-    <string name="notif_period_title">经期即将到来</string>
-    <string name="notif_period_body">您的经期预计在 %1 左右</string>
-    <string name="notif_fertile_title">易孕期</string>
-    <string name="notif_fertile_body">您的易孕期大约从 %1 开始</string>
-    <string name="expected_window">预计 %1 - %2</string>
-    <string name="notif_action_open">打开</string>
-
     <!-- 周期阶段提醒 -->
     <string name="channel_cycle">周期提醒</string>
     <string name="rem_phase_menstrual">月经期</string>
@@ -161,13 +235,15 @@
     <string name="rem_phase_ovulatory">排卵期/易孕期</string>
     <string name="rem_phase_luteal">黄体期</string>
     <string name="notif_menstrual_title">经期即将到来</string>
-    <string name="notif_menstrual_body">您的经期预计在 %1 左右</string>
+    <string name="notif_menstrual_body">您的经期预计在 %1$s 左右</string>
     <string name="notif_follicular_title">卵泡期</string>
-    <string name="notif_follicular_body">您的卵泡期大约从 %1 开始</string>
+    <string name="notif_follicular_body">您的卵泡期大约从 %1$s 开始</string>
     <string name="notif_ovulatory_title">易孕期</string>
-    <string name="notif_ovulatory_body">排卵期预计在 %1 左右</string>
+    <string name="notif_ovulatory_body">排卵期预计在 %1$s 左右</string>
     <string name="notif_luteal_title">黄体期</string>
-    <string name="notif_luteal_body">您的黄体期大约从 %1 开始</string>
+    <string name="notif_luteal_body">您的黄体期大约从 %1$s 开始</string>
+
+    <!-- 其他 -->
     <string name="legend_intimacy">性行为</string>
     <string name="select_dates_hint">点击第一天和最后一天</string>
     <string name="settings_theme_color">主题颜色</string>
@@ -178,7 +254,7 @@
     <string name="action_period_started">经期开始</string>
     <string name="card_delay">延迟</string>
     <string name="card_delay_hint">如果经期已开始请点击</string>
-    <string name="delay_days_fmt">%1 天</string>
+    <string name="delay_days_fmt">%1$d 天</string>
     <string name="history_empty_title">暂无统计数据</string>
     <string name="action_period_continue">经期继续</string>
     <string name="delay_marked">已记录延迟</string>
@@ -197,25 +273,4 @@
     <string name="cancel_removed">标记已移除</string>
     <string name="log_delete">删除记录</string>
     <string name="confirm_delete_log">删除这天的记录？</string>
-
-    <!-- 引导弹窗 -->
-    <string name="onboarding_welcome_title">设置您的周期</string>
-    <string name="onboarding_welcome_subtitle">一些默认设置来个性化预测。您可以稍后更改</string>
-    <string name="onboarding_cycle_length">平均周期长度</string>
-    <string name="onboarding_period_length">平均经期长度</string>
-    <string name="onboarding_goal">您的目标</string>
-    <string name="onboarding_accept">我理解此应用不是避孕工具，预测仅为估计</string>
-    <string name="onboarding_start">开始使用</string>
-    <string name="onboarding_accept_continue">我理解并接受</string>
-    <string name="goal_tracking">追踪我的周期</string>
-    <string name="goal_ttc">备孕</string>
-    <string name="goal_avoid">周期意识</string>
-
-    <!-- 锁屏 -->
-    <string name="lock_title">周期已锁定</string>
-    <string name="lock_subtitle">解锁以继续</string>
-    <string name="lock_unlock">解锁</string>
-
-    <!-- 免责声明 -->
-    <string name="disclaimer">免责声明：此应用仅供参考，不构成医疗建议。如有任何健康问题或担忧，请咨询专业医疗人员。</string>
 </resources>
